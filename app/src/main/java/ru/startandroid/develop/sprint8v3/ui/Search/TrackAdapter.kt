@@ -1,12 +1,13 @@
-package ru.startandroid.develop.sprint8v3
+package ru.startandroid.develop.sprint8v3.ui.Search
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
+import ru.startandroid.develop.sprint8v3.R
+import ru.startandroid.develop.sprint8v3.domain.models.Track
 
-class TrackAdapter(val listener:Listener, private val tracks: ArrayList<Track> = ArrayList()) :
+class TrackAdapter(val listener: Listener, private val tracks: ArrayList<Track> = ArrayList()) :
     RecyclerView.Adapter<TrackViewHolder>() {
 
     interface Listener {

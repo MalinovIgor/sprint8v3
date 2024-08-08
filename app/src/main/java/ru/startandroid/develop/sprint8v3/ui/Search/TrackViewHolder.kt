@@ -1,13 +1,14 @@
-package ru.startandroid.develop.sprint8v3
+package ru.startandroid.develop.sprint8v3.ui.Search
 
-import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import ru.startandroid.develop.sprint8v3.R
+import ru.startandroid.develop.sprint8v3.domain.models.Track
+import ru.startandroid.develop.sprint8v3.ui.Search.TrackAdapter
 import java.text.SimpleDateFormat
 import java.util.Locale
 

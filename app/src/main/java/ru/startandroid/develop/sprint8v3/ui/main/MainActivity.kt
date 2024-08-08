@@ -1,11 +1,16 @@
-package ru.startandroid.develop.sprint8v3
+package ru.startandroid.develop.sprint8v3.ui.main
 
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
+import ru.startandroid.develop.sprint8v3.R
+import ru.startandroid.develop.sprint8v3.ui.MediatekaActivity
+import ru.startandroid.develop.sprint8v3.ui.Search.SearchActivity
+import ru.startandroid.develop.sprint8v3.ui.Settings.SettingsActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +23,10 @@ class MainActivity : AppCompatActivity() {
             override fun onClick(v: View?) {
                 val displayIntent = Intent(this@MainActivity, SearchActivity::class.java)
                 displayIntent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+                Log.e("ActivitySearch", "Created!")
+
                 startActivity(displayIntent)
+
             }
         }
 

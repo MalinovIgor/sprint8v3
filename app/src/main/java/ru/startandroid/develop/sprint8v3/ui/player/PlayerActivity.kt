@@ -1,4 +1,4 @@
-package ru.startandroid.develop.sprint8v3
+package ru.startandroid.develop.sprint8v3.ui.player
 
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -13,19 +13,16 @@ import java.util.Locale
 import java.util.TimeZone
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
+import ru.startandroid.develop.sprint8v3.R
+import ru.startandroid.develop.sprint8v3.domain.models.Track
 
 const val selectedTrack = "selectedTrack"
 const val noData = "отсутствует"
 
 class PlayerActivity : AppCompatActivity() {
 
-    companion object {
-        private const val STATE_DEFAULT = 0
-        private const val STATE_PREPARED = 1
-        private const val STATE_PLAYING = 2
-        private const val STATE_PAUSED = 3
-        private const val TIMER_UPDATE_DELAY = 500L
-    }
+
 
     private var playerState = STATE_DEFAULT
     private var mediaPlayer = MediaPlayer()
@@ -56,6 +53,7 @@ class PlayerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
+        Log.e("PlayerActivity", selectedTrack.toString())
 
         setupViews()
 
@@ -173,5 +171,14 @@ class PlayerActivity : AppCompatActivity() {
                 handler.postDelayed(timerRunnable, TIMER_UPDATE_DELAY)
             }
         }
+    }
+
+
+    companion object {
+        private const val STATE_DEFAULT = 0
+        private const val STATE_PREPARED = 1
+        private const val STATE_PLAYING = 2
+        private const val STATE_PAUSED = 3
+        private const val TIMER_UPDATE_DELAY = 500L
     }
 }

@@ -1,10 +1,11 @@
-package ru.startandroid.develop.sprint8v3
+package ru.startandroid.develop.sprint8v3.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.RelativeLayout
+import ru.startandroid.develop.sprint8v3.R
 
 class MediatekaActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package ru.startandroid.develop.sprint8v3
+package ru.startandroid.develop.sprint8v3.domain.models
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
