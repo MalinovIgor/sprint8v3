@@ -5,7 +5,12 @@ import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ru.startandroid.develop.sprint8v3.player.domain.api.PlayerInteractor
 import ru.startandroid.develop.sprint8v3.player.state.PlayerState
 import ru.startandroid.develop.sprint8v3.search.domain.models.Track
@@ -16,12 +21,23 @@ class PlayerActivityViewModel(private val interactor: PlayerInteractor) : ViewMo
 
     val playerState = MutableLiveData(PlayerState.STATE_DEFAULT)
 
+    private var timerJob: Job? = null
+
     private val _currentTime = MutableLiveData<Int>()
     val currentTime: LiveData<Int> get() = _currentTime
     fun observePlayerState(): LiveData<PlayerState> = playerState
 
     init {
         prepare()
+    }
+
+    private fun startTimer() {
+        timerJob = viewModelScope.launch {
+            while (true) {
+                delay(300L)
+                _currentTime.postValue(interactor.getCurrentTime())
+            }
+        }
     }
 
     fun play() {
@@ -34,29 +50,10 @@ class PlayerActivityViewModel(private val interactor: PlayerInteractor) : ViewMo
         playerState.postValue(interactor.getState())
     }
 
-    private fun startTimer() {
-        handler.post(timerRunnable)
-    }
-
-    private val handler = Handler(Looper.getMainLooper())
-    private val timerRunnable by lazy {
-        object : Runnable {
-            override fun run() {
-
-                if (playerState.value == PlayerState.STATE_PLAYING) {
-
-                    _currentTime.postValue(interactor.getCurrentTime())
-                    handler.postDelayed(this, TIMER_UPDATE_DELAY)
-                }
-
-            }
-        }
-    }
-
     fun pause() {
-        interactor.pause()
         playerState.postValue(PlayerState.STATE_PAUSED)
-        pauseTimer()
+
+        interactor.pause()
     }
 
     fun stop() {
@@ -67,15 +64,6 @@ class PlayerActivityViewModel(private val interactor: PlayerInteractor) : ViewMo
     fun prepare() {
         interactor.prepare()
         playerState.postValue(PlayerState.STATE_PREPARED)
-    }
-
-    private fun pauseTimer() {
-        handler.removeCallbacks(timerRunnable)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        pauseTimer()
     }
 
     fun parseDate(releaseDateString: String?, noData: String): String {
@@ -93,9 +81,5 @@ class PlayerActivityViewModel(private val interactor: PlayerInteractor) : ViewMo
                 noData
             }
         }
-    }
-
-    companion object {
-        private const val TIMER_UPDATE_DELAY = 250L
     }
 }
