@@ -1,5 +1,6 @@
 package ru.startandroid.develop.sprint8v3.search.ui
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -29,7 +30,9 @@ class TrackAdapter(val listener: Listener, private val tracks: ArrayList<Track> 
         holder.bind(tracks[position], listener)
     }
 
-    override fun getItemCount(): Int = tracks.size
+    override fun getItemCount(): Int {
+        return tracks.size
+    }
 
     }
 
